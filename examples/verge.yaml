@@ -1,0 +1,117 @@
+# ============================================================
+# 脱敏示例文件 —— verge.yaml
+# ============================================================
+# 这是 Clash Verge 的【应用偏好设置】，界面上的每一个开关基本都对应这里一项。
+# 迁移这个文件，等于把"你已经调好的使用习惯"一起搬过去。
+#
+# 本文件基于真实配置整理，已做以下处理：
+#   - 移除界面里那几张延迟测试目标的 SVG 图标（体积大且无参考价值）
+#   - profile_dns_settings 里的订阅 uid 已替换为虚构值
+# 其余字段与真实配置一致，可直接参考。
+# ============================================================
+
+# Clash Verge Config
+
+# ---- 日志 ----
+app_log_level: error
+app_log_max_size: null
+app_log_max_count: null
+
+# ---- 界面 ----
+language: zh
+theme_mode: system
+start_page: /
+traffic_graph: true
+enable_memory_usage: true
+enable_group_icon: true
+common_tray_icon: false
+tray_icon: colorful
+menu_icon: colorful
+sysproxy_tray_icon: true
+tun_tray_icon: false
+
+# ---- 启动行为 ----
+enable_auto_launch: false
+enable_silent_start: false
+
+# ---- 代理核心开关（迁移时最需要关注的几项）----
+enable_tun_mode: null
+enable_system_proxy: true          # 是否自动设置系统代理
+enable_proxy_guard: false          # 代理守护（定期检查系统代理是否被改回）
+proxy_guard_duration: 30
+enable_bypass_check: null
+use_default_bypass: true
+system_proxy_bypass: null
+proxy_auto_config: false
+
+# ---- 各订阅独立的 DNS 覆写开关 ----
+# key 是订阅的 uid，enabled 表示该订阅是否启用自定义 DNS
+enable_dns_settings: null
+profile_dns_settings:
+  aB3dEf6hIjK1:
+    enabled: false
+  zY9xWv8uTs7r:
+    enabled: false
+
+# ---- PAC 脚本 ----
+pac_file_content: |
+  function FindProxyForURL(url, host) {
+    return "PROXY 127.0.0.1:%mixed-port%; SOCKS5 127.0.0.1:%mixed-port%; DIRECT;";
+  }
+proxy_host: null
+
+# ---- 内核与更新 ----
+clash_core: verge-mihomo
+auto_close_connection: true
+auto_check_update: false
+enable_builtin_enhanced: true
+
+# ---- 延迟测试 ----
+default_latency_test: ''
+default_latency_timeout: 10000
+enable_auto_delay_detection: null
+auto_delay_detection_interval_minutes: null
+proxy_layout_column: 6
+
+# ---- 端口（对应 config.yaml 里的端口字段）----
+verge_redir_port: 7895
+verge_redir_enabled: false
+verge_mixed_port: 7897
+verge_socks_port: 7898
+verge_socks_enabled: false
+verge_port: 7899
+verge_http_enabled: false
+
+# ---- 杂项 ----
+env_type: bash
+startup_script: null
+theme_setting: null
+web_ui_list: null
+home_cards: null
+auto_log_clean: 1
+enable_auto_backup_schedule: null
+auto_backup_interval_hours: null
+auto_backup_on_change: null
+enable_tray_speed: null
+tray_inline_outbound_modes: null
+enable_auto_light_weight_mode: null
+auto_light_weight_minutes: null
+enable_hover_jump_navigator: null
+hover_jump_navigator_delay: null
+enable_external_controller: null
+
+# ---- 延迟测试目标列表 ----
+# 真实文件里每项还带一个 48x48 的 icon SVG，这里省略
+test_list:
+  - uid: 9xXz1S5eiQ6fgdm0qCGQX
+    name: Apple
+    url: https://www.apple.com
+  - uid: OCgNUpfXoeK_usVztlUPb
+    name: GitHub
+    url: https://www.github.com
+  - uid: Unpv0kFOoqTQ6K61N1qRq
+    name: Google
+    url: https://www.google.com
+  - uid: iRoacjGEBtjDygIRZDjFE
+    name: Youtube
+    url: https://www.youtube.com

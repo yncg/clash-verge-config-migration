@@ -1,0 +1,128 @@
+# ============================================================
+# 脱敏示例文件 —— profiles.yaml
+# ============================================================
+# 这是 Clash Verge 的「订阅索引」文件，记录当前使用哪个订阅、
+# 每个订阅的文件名与 URL、以及关联的增强模板。
+#
+# 本文件为【虚构示例】：
+#   - 所有 uid 均为随机生成，与真实配置无关
+#   - 所有订阅 URL 已替换为 example.com 占位符
+#   - 节点名称、流量信息均为编造内容
+# 请勿直接使用，仅作格式参考。
+# ============================================================
+
+current: aB3dEf6hIjK1
+
+items:
+# ---------- 全局模板：所有订阅共享 ----------
+- uid: Merge
+  type: merge
+  name: null
+  file: Merge.yaml
+  updated: 1700000000
+
+- uid: Script
+  type: script
+  name: null
+  file: Script.js
+  updated: 1700000000
+
+# ---------- 订阅 1：远程订阅（机场） ----------
+- uid: aB3dEf6hIjK1
+  type: remote
+  name: Demo-Airport
+  file: aB3dEf6hIjK1.yaml
+  url: https://example.com/subscribe?token=YOUR_TOKEN_HERE
+  updated: 1700000000
+  selected:
+  - name: ♻️ 自动选择
+    now: 🇭🇰 香港01
+  extra:
+    upload: 0
+    download: 0
+    total: 107374182400
+    expire: 0
+  option:
+    update_interval: 1440
+    allow_auto_update: true
+    merge: mNoPqRsTuVwX
+    script: yZaBcDeFgHiJ
+    rules: kLmNoPqRsTuV
+    proxies: wXyZaBcDeFgH
+    groups: iJkLmNoPqRsT
+
+# ---------- 订阅 1 的增强模板 ----------
+- uid: mNoPqRsTuVwX
+  type: merge
+  name: null
+  file: mNoPqRsTuVwX.yaml
+  updated: 1700000000
+
+- uid: yZaBcDeFgHiJ
+  type: script
+  name: null
+  file: yZaBcDeFgHiJ.js
+  updated: 1700000000
+
+- uid: kLmNoPqRsTuV
+  type: rules
+  name: null
+  file: kLmNoPqRsTuV.yaml
+  updated: 1700000000
+
+- uid: wXyZaBcDeFgH
+  type: proxies
+  name: null
+  file: wXyZaBcDeFgH.yaml
+  updated: 1700000000
+
+- uid: iJkLmNoPqRsT
+  type: groups
+  name: null
+  file: iJkLmNoPqRsT.yaml
+  updated: 1700000000
+
+# ---------- 订阅 2：局域网订阅（从内网设备拉取） ----------
+- uid: zY9xWv8uTs7r
+  type: remote
+  name: Demo-LAN-Source
+  file: zY9xWv8uTs7r.yaml
+  url: http://192.168.1.100:8080/share/config.yaml
+  updated: 1700000000
+  option:
+    allow_auto_update: true
+    merge: qPoIuYtReWs
+    script: aSdFgHjKlZxC
+    rules: vBnMqWeRtYuI
+    proxies: oPkLjHgFdSaQ
+    groups: zXcVbNmQwErT
+
+- uid: qPoIuYtReWs
+  type: merge
+  name: null
+  file: qPoIuYtReWs.yaml
+  updated: 1700000000
+
+- uid: aSdFgHjKlZxC
+  type: script
+  name: null
+  file: aSdFgHjKlZxC.js
+  updated: 1700000000
+
+- uid: vBnMqWeRtYuI
+  type: rules
+  name: null
+  file: vBnMqWeRtYuI.yaml
+  updated: 1700000000
+
+- uid: oPkLjHgFdSaQ
+  type: proxies
+  name: null
+  file: oPkLjHgFdSaQ.yaml
+  updated: 1700000000
+
+- uid: zXcVbNmQwErT
+  type: groups
+  name: null
+  file: zXcVbNmQwErT.yaml
+  updated: 1700000000

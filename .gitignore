@@ -1,0 +1,28 @@
+# ============================================================
+# 防止把真实配置误提交上来
+# ============================================================
+# 这个仓库只应该包含「文档 + 脱敏示例」。
+# 真实配置里含有订阅 token 和节点密码，一旦推到远端就等于泄露。
+
+# GeoIP / GeoSite 数据库（体积大，无需纳入版本管理）
+*.mmdb
+*.dat
+
+# 运行时产物
+cache.db
+singleton-instance.json
+singleton-instance.lock
+logs/
+service-logs/
+
+# 如果你把真实配置目录整个复制进来做试验，这些东西绝不能提交
+# （examples/ 下的示例文件不受影响）
+io.github.clash-verge-rev.clash-verge-rev/
+profiles.yaml.real
+profiles.yaml.bak
+*.backup-*
+*.bak
+
+# macOS
+.DS_Store
+._*

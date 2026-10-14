@@ -1,0 +1,41 @@
+# ============================================================
+# 脱敏示例文件 —— config.yaml
+# ============================================================
+# 这是 Clash Verge 交给内核的启动参数文件。
+# 大部分字段会由 verge.yaml 里的设置映射生成，应用启动时会重写它。
+#
+# 注意 external-controller-unix 这一项：
+# 它指向一个「本次会话专属」的临时目录（/var/folders/... 或 $TMPDIR），
+# 换机器 / 换会话后这个路径就失效了，所以迁移时可以忽略它，
+# 应用启动会重新生成。
+# ============================================================
+
+redir-port: 7895
+mixed-port: 7897
+socks-port: 7898
+port: 7899
+log-level: info
+allow-lan: false
+mode: rule
+external-controller: 127.0.0.1:9097
+secret: set-your-secret
+
+tun:
+  enable: false
+  stack: mixed
+  auto-route: true
+  strict-route: false
+  auto-detect-interface: true
+  dns-hijack:
+    - any:53
+
+external-controller-cors:
+  allow-private-network: true
+  allow-origins:
+    - '*'
+
+unified-delay: true
+ipv6: false
+
+# 下面这行的路径每次会话都不同，迁移时无需关心
+external-controller-unix: /var/folders/xx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/T/verge-mihomo.sock

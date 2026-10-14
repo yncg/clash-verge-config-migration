@@ -1,0 +1,135 @@
+# ============================================================
+# 脱敏示例文件 —— 订阅内容（假的节点配置）
+# ============================================================
+# 真实的订阅文件由机场 / 自建服务生成，里面包含：
+#   server  : 节点服务器地址
+#   port    : 端口
+#   password: 密码（SS / Trojan 等）
+#   uuid    : 用户标识（VMess / VLESS）
+#
+# 本文件为【完全虚构的示例】：
+#   - 域名统一使用 example.com（RFC 2606 保留域名，解析不到任何真实主机）
+#   - 密码 / UUID 为随机编造的无效值
+#   - 流量、到期信息均为编造
+# 目的是演示订阅文件的结构与字段，不能用于实际连接。
+# ============================================================
+
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+dns:
+  enable: true
+  ipv6: false
+  listen: 0.0.0.0:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+
+proxies:
+  # ---- 假节点 1：Shadowsocks ----
+  - name: "🇭🇰 香港01[Demo]"
+    type: ss
+    server: hk01.example.com
+    port: 10001
+    cipher: chacha20-ietf-poly1305
+    password: "REDACTED-EXAMPLE-PASSWORD-0001"
+    udp: true
+
+  # ---- 假节点 2：Shadowsocks ----
+  - name: "🇭🇰 香港02[Demo]"
+    type: ss
+    server: hk02.example.com
+    port: 10002
+    cipher: aes-256-gcm
+    password: "REDACTED-EXAMPLE-PASSWORD-0002"
+    udp: true
+
+  # ---- 假节点 3：VMess ----
+  - name: "🇯🇵 日本01[Demo]"
+    type: vmess
+    server: jp01.example.com
+    port: 20001
+    uuid: "00000000-0000-4000-8000-000000000003"
+    alterId: 0
+    cipher: auto
+    tls: true
+    servername: jp01.example.com
+    network: ws
+    ws-opts:
+      path: /demo-path
+      headers:
+        Host: jp01.example.com
+
+  # ---- 假节点 4：Trojan ----
+  - name: "🇸🇬 新加坡01[Demo]"
+    type: trojan
+    server: sg01.example.com
+    port: 30001
+    password: "REDACTED-EXAMPLE-PASSWORD-0004"
+    sni: sg01.example.com
+    udp: true
+    skip-cert-verify: false
+
+  # ---- 假节点 5：流量信息（机场常用做法，把流量当作一个"节点"显示） ----
+  - name: "剩余流量：100.0 GB"
+    type: ss
+    server: info.example.com
+    port: 1
+    cipher: chacha20-ietf-poly1305
+    password: "REDACTED-EXAMPLE-PASSWORD-INFO"
+    udp: false
+
+proxy-groups:
+  - name: 🔰 节点选择
+    type: select
+    proxies:
+      - ♻️ 自动选择
+      - 🇭🇰 香港01[Demo]
+      - 🇭🇰 香港02[Demo]
+      - 🇯🇵 日本01[Demo]
+      - 🇸🇬 新加坡01[Demo]
+      - DIRECT
+
+  - name: ♻️ 自动选择
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+      - 🇭🇰 香港01[Demo]
+      - 🇭🇰 香港02[Demo]
+      - 🇯🇵 日本01[Demo]
+      - 🇸🇬 新加坡01[Demo]
+
+  - name: 🌍 国外媒体
+    type: select
+    proxies:
+      - 🔰 节点选择
+      - ♻️ 自动选择
+      - DIRECT
+
+  - name: 🎯 全球直连
+    type: select
+    proxies:
+      - DIRECT
+      - 🔰 节点选择
+
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:
+      - 🔰 节点选择
+      - DIRECT
+
+rules:
+  - DOMAIN-SUFFIX,example.com,DIRECT
+  - DOMAIN-SUFFIX,cn,🎯 全球直连
+  - GEOIP,CN,🎯 全球直连
+  - MATCH,🐟 漏网之鱼
